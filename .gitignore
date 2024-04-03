@@ -1,6 +1,7 @@
 # Excluded folders
 /.vs/
 /Temp
+.DS_Store
 
 [Bb]in/
 [Bb]uild/
