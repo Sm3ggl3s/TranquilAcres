@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3122201309468018950}
   - component: {fileID: 2088423491611575971}
   - component: {fileID: 4260235167526171241}
+  - component: {fileID: 733240436852770744}
   m_Layer: 0
   m_Name: WaterWell
   m_TagString: Untagged
@@ -83,3 +84,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &733240436852770744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2314737096657048508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b14f9de0c3e43bc8eaf15dc18f7aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validPlacementMaterial: {fileID: 2100000, guid: 31aff87eebcf24896b3a0706258011fc, type: 2}
+  invalidPlacementMaterial: {fileID: 2100000, guid: 1d53b4ef46a5e4a2988599cb3dd035d3, type: 2}
+  meshComponents:
+  - {fileID: 4260235167526171241}
+  hasValidPlacement: 0
+  isFixed: 0
