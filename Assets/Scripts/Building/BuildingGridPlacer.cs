@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingPlacer : MonoBehaviour
+public class BuildingGridPlacer : BuildingPlacer
 {
-    public static BuildingPlacer instance;
 
-    //Layer
-    public LayerMask groundLayer;
+    public float cellSize;
+    public Vector2 gridOffset;
 
-    //Building
-    protected GameObject _buildingPrefab;
-    protected GameObject _toBuild;
+    public Renderer gridRenderer;
 
-    //Camera
-    protected Camera _mainCamera;
+#if UNITY_EDITOR
+    private void OnValidate() {
+        UpdateGridVisual();
+    }
+#endif
 
-    // Raycast
-    protected Ray _ray;
-    protected RaycastHit _hit;
-
-    private void Awake() {
-        instance = this;
-        _mainCamera = Camera.main;
-        _buildingPrefab = null;
+    private void Start() {
+        UpdateGridVisual();
+        EnableGridVisual(false);
     }
 
     private void Update() {
@@ -35,6 +30,7 @@ public class BuildingPlacer : MonoBehaviour
                 Destroy(_toBuild);
                 _buildingPrefab = null;
                 _toBuild = null;
+                EnableGridVisual(false);
                 return;
             }
             
@@ -58,7 +54,7 @@ public class BuildingPlacer : MonoBehaviour
                 if (!_toBuild.activeSelf) {
                     _toBuild.SetActive(true);
                 }
-                _toBuild.transform.position = _hit.point;
+                _toBuild.transform.position = ClampToNearest(_hit.point, cellSize);
 
                 // Left Click on Mouse place building
                 if (Input.GetMouseButtonDown(0)) {
@@ -69,6 +65,7 @@ public class BuildingPlacer : MonoBehaviour
                         // Exit building mode
                         _buildingPrefab = null;
                         _toBuild = null;
+                        EnableGridVisual(false);
                     }
                 }
             } else if (_toBuild.activeSelf) {
@@ -77,23 +74,32 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    public void SetBuildingPrefab(GameObject building) {
-        _buildingPrefab = building;
-        PrepareBuilding();
-        EventSystem.current.SetSelectedGameObject(null);
-    }   
+    protected override void PrepareBuilding() {
+        base.PrepareBuilding();
+        EnableGridVisual(true);
+    }
 
-    protected virtual void PrepareBuilding() {
-        if (_toBuild) {
-            Destroy(_toBuild);
-        }
+    private Vector3 ClampToNearest(Vector3 pos, float threshold) {
+        float t = 1f / threshold;
+        Vector3 v = ((Vector3)Vector3Int.FloorToInt(pos * t)) / t;
 
-        _toBuild = Instantiate(_buildingPrefab);
-        _toBuild.SetActive(false);
+        // Offset to center of cell
+        float s = threshold / 2.0f;
+        v.x += s + gridOffset.x;
+        v.z += s + gridOffset.y;
 
-        BuildingManager m = _toBuild.GetComponent<BuildingManager>();
+        return v;
+    }
 
-        m.isFixed = false;
-        m.SetPlacementMode(PlacementMode.Valid);
+    private void EnableGridVisual(bool on) {
+        if (gridRenderer == null) return;
+        gridRenderer.gameObject.SetActive(on);
+        print(gridRenderer.gameObject.activeSelf);
+    }
+
+    private void UpdateGridVisual() {
+        Debug.Log("UpdateGridVisual is called");
+        if (gridRenderer == null) return;
+        gridRenderer.sharedMaterial.SetVector("_Cell_Size", new Vector4(cellSize, cellSize, 0, 0));
     }
 }
