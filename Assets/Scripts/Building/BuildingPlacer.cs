@@ -14,16 +14,18 @@ public class BuildingPlacer : MonoBehaviour
     protected GameObject _buildingPrefab;
     protected GameObject _toBuild;
 
-    //Camera
-    protected Camera _mainCamera;
+    protected GameObject raycastOriginObject;
 
     // Raycast
     protected Ray _ray;
     protected RaycastHit _hit;
 
     private void Awake() {
-        instance = this;
-        _mainCamera = Camera.main;
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(this);
+        }
         _buildingPrefab = null;
     }
 
@@ -37,28 +39,20 @@ public class BuildingPlacer : MonoBehaviour
                 _toBuild = null;
                 return;
             }
-            
-            // Hides building when mouse is over UI
-            if (EventSystem.current.IsPointerOverGameObject()) {
-                if (_toBuild.activeSelf) {
-                    _toBuild.SetActive(false);
-                    return;
-                }
-            } else if (!_toBuild.activeSelf) {
-                _toBuild.SetActive(true);
-            }
 
             // Rotate preview with Spacebar
             if (Input.GetKeyDown(KeyCode.Space)) {
                 _toBuild.transform.Rotate(Vector3.up, 90f);
             }
 
-            _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            _ray = new Ray(raycastOriginObject.transform.position, Vector3.down);
             if (Physics.Raycast(_ray, out _hit, 1000f, groundLayer)) {
                 if (!_toBuild.activeSelf) {
                     _toBuild.SetActive(true);
                 }
-                _toBuild.transform.position = _hit.point;
+                Vector3 hitPoint = _hit.point;
+                hitPoint.y = 0;
+                _toBuild.transform.position = hitPoint;
 
                 // Left Click on Mouse place building
                 if (Input.GetMouseButtonDown(0)) {

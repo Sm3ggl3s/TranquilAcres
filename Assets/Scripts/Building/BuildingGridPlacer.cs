@@ -5,11 +5,15 @@ using UnityEngine.EventSystems;
 
 public class BuildingGridPlacer : BuildingPlacer
 {
-
+    [Header("Grid Settings")]
     public float cellSize;
     public Vector2 gridOffset;
 
     public Renderer gridRenderer;
+
+    [Header("Raycast Settings")]
+
+    public GameObject raycastOriginObject;
 
 #if UNITY_EDITOR
     private void OnValidate() {
@@ -33,28 +37,20 @@ public class BuildingGridPlacer : BuildingPlacer
                 EnableGridVisual(false);
                 return;
             }
-            
-            // Hides building when mouse is over UI
-            if (EventSystem.current.IsPointerOverGameObject()) {
-                if (_toBuild.activeSelf) {
-                    _toBuild.SetActive(false);
-                    return;
-                }
-            } else if (!_toBuild.activeSelf) {
-                _toBuild.SetActive(true);
-            }
 
             // Rotate preview with Spacebar
             if (Input.GetKeyDown(KeyCode.Space)) {
                 _toBuild.transform.Rotate(Vector3.up, 90f);
             }
 
-            _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            _ray = new Ray(raycastOriginObject.transform.position, Vector3.down);
             if (Physics.Raycast(_ray, out _hit, 1000f, groundLayer)) {
                 if (!_toBuild.activeSelf) {
                     _toBuild.SetActive(true);
                 }
-                _toBuild.transform.position = ClampToNearest(_hit.point, cellSize);
+                Vector3 hitPoint = _hit.point;
+                hitPoint.y = 0;
+                _toBuild.transform.position = ClampToNearest(hitPoint, cellSize);
 
                 // Left Click on Mouse place building
                 if (Input.GetMouseButtonDown(0)) {
@@ -79,9 +75,9 @@ public class BuildingGridPlacer : BuildingPlacer
         EnableGridVisual(true);
     }
 
-    private Vector3 ClampToNearest(Vector3 pos, float threshold) {
+    private Vector3 ClampToNearest(Vector3 position, float threshold) {
         float t = 1f / threshold;
-        Vector3 v = ((Vector3)Vector3Int.FloorToInt(pos * t)) / t;
+        Vector3 v = ((Vector3)Vector3Int.FloorToInt(position * t)) / t;
 
         // Offset to center of cell
         float s = threshold / 2.0f;
@@ -94,11 +90,9 @@ public class BuildingGridPlacer : BuildingPlacer
     private void EnableGridVisual(bool on) {
         if (gridRenderer == null) return;
         gridRenderer.gameObject.SetActive(on);
-        print(gridRenderer.gameObject.activeSelf);
     }
 
     private void UpdateGridVisual() {
-        Debug.Log("UpdateGridVisual is called");
         if (gridRenderer == null) return;
         gridRenderer.sharedMaterial.SetVector("_Cell_Size", new Vector4(cellSize, cellSize, 0, 0));
     }
