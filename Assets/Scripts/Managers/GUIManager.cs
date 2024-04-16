@@ -12,9 +12,6 @@ public class GUIManager : MonoBehaviour {
     public GameObject inventoryPanel;
 
 
-    [Header("Building Menu Settings")]
-    
-
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -29,5 +26,5 @@ public class GUIManager : MonoBehaviour {
     private void ShowInventory() {
 
     }
-    }
+    
 }
