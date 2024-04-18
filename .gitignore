@@ -2,6 +2,7 @@
 /.vs/
 /Temp
 .DS_Store
+.vscode
 
 [Bb]in/
 [Bb]uild/
