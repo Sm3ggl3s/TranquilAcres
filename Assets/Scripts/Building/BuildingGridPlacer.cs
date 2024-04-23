@@ -13,11 +13,10 @@ public class BuildingGridPlacer : BuildingPlacer
 
     [Header("Raycast Settings")]
 
-    public GameObject raycastOriginObject;
+    public new GameObject raycastOriginObject;
 
 #if UNITY_EDITOR
     private void OnValidate() {
-        print("OnValidate");
         UpdateGridVisual();
     }
 #endif
@@ -94,7 +93,6 @@ public class BuildingGridPlacer : BuildingPlacer
     }
 
     private void UpdateGridVisual() {
-        print("Updating Grid Visual");
         if (gridRenderer == null) return;
         gridRenderer.sharedMaterial.SetVector("_Cell_Size", new Vector4(cellSize, cellSize, 0, 0));
     }

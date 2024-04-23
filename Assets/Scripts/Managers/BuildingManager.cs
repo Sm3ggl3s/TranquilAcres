@@ -43,6 +43,11 @@ public class BuildingManager : MonoBehaviour
         _nObstacles++;
         print(_nObstacles + "enter");
         SetPlacementMode(PlacementMode.Invalid);
+
+        // if the player is colliding with the building
+        if (other.gameObject.CompareTag("Player")) {
+            GetComponent<Collider>().isTrigger = false;
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -58,6 +63,11 @@ public class BuildingManager : MonoBehaviour
         print(_nObstacles + "exit");
         if (_nObstacles == 0) {
             SetPlacementMode(PlacementMode.Valid);
+        }
+
+        // if the player is colliding with the building
+        if (other.gameObject.CompareTag("Player")) {
+            GetComponent<Collider>().isTrigger = true;
         }
     }
 

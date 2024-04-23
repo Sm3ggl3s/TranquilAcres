@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2074223021519215089}
   - component: {fileID: 3127403923218372180}
   - component: {fileID: 901337874673754782}
+  - component: {fileID: -766082073159682040}
   m_Layer: 0
   m_Name: Wheat_Seed
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1694143414773695307}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -7.948968, y: 0, z: 0.8942817}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.044358607, y: 0.12548414, z: 0.03200396}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,3 +84,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-766082073159682040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694143414773695307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fe68c80006c4bbab7d410131169b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingCropPrefab: {fileID: 0}
+  cropData: {fileID: 11400000, guid: 70399ab4477d34d17b347333d76365e8, type: 2}
+  rayCastOriginObject: {fileID: 6387505791886165826, guid: a819c47e86d6241e3848423e9b1200db, type: 3}
+  cropPlotLayer:
+    serializedVersion: 2
+    m_Bits: 8192

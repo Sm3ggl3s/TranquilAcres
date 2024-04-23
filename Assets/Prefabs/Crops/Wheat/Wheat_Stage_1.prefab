@@ -11,9 +11,6 @@ GameObject:
   - component: {fileID: 18688635321779608}
   - component: {fileID: 4030086852005202493}
   - component: {fileID: 1155536050138840823}
-  - component: {fileID: -6902818315710701122}
-  - component: {fileID: -6036904290049309897}
-  - component: {fileID: 5036174624079562934}
   m_Layer: 0
   m_Name: Wheat_Stage_1
   m_TagString: Untagged
@@ -86,69 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-6902818315710701122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795366483965337378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a71b75448e3841b9b168c1cb347d0c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  validPlacementMaterial: {fileID: 2100000, guid: 31aff87eebcf24896b3a0706258011fc, type: 2}
-  invalidPlacementMaterial: {fileID: 2100000, guid: 1d53b4ef46a5e4a2988599cb3dd035d3, type: 2}
-  meshComponents:
-  - {fileID: 1155536050138840823}
-  hasValidPlacement: 0
-  isFixed: 0
---- !u!65 &-6036904290049309897
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795366483965337378}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0804865, y: 0.33121553, z: 1.0783124}
-  m_Center: {x: 0.011174411, y: 0.16559966, z: -0.006948799}
---- !u!54 &5036174624079562934
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795366483965337378}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
