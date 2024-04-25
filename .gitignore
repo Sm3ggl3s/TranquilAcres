@@ -3,6 +3,7 @@
 /Temp
 .DS_Store
 .vscode
+Assets/.DS_Store
 
 [Bb]in/
 [Bb]uild/
