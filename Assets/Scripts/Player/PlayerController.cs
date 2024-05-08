@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
         _characterController.Move(_direction * speed * Time.deltaTime);
     }
 
+    #region Movement
+
     public void Move(InputAction.CallbackContext context)
     {
         // Reads Input
@@ -64,4 +66,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    #endregion
+
 }

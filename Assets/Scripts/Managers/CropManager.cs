@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum CropPlacementMode {
@@ -25,6 +26,9 @@ public class CropManager : MonoBehaviour {
     [HideInInspector] public bool hasValidPlacement;
     [HideInInspector] public bool isFixed;
 
+    public GameObject growthStagePrefab = null;
+    public bool isHarvestable = false;
+
     private int _nObstacles;
 
     private void Awake() {
@@ -34,6 +38,54 @@ public class CropManager : MonoBehaviour {
 
         _InitializeMaterials();
     }
+
+    private void Update() {
+        Debug.Log("Harvestable Update method: " + isHarvestable);
+        Debug.Log("Grow Stage Prefab: " + growthStagePrefab);
+
+        if (isHarvestable && Input.GetKeyDown(KeyCode.E)) {
+            HarvestCrop();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (isFixed) {
+            GetComponent<Collider>().isTrigger = false;
+            return;
+        }
+
+        // ignore Crop Plot Objects
+        if (_IsCropPlot(other.gameObject)) {
+            return;
+        }
+
+        _nObstacles++;
+        SetCropPlacementMode(PlacementMode.Invalid);
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (isFixed) {
+            return;
+        }
+
+        // ignore Crop Plot Objects
+        if (_IsCropPlot(other.gameObject)) {
+            return;
+        }
+
+        _nObstacles--;
+        if (_nObstacles == 0) {
+            SetCropPlacementMode(PlacementMode.Valid);
+        }
+
+
+        // if the player is colliding with the building
+        if (other.gameObject.CompareTag("Player")) {
+            GetComponent<Collider>().isTrigger = true;
+        }
+    }
+
+    #region Placement
 
     public void SetCropPlacementMode(PlacementMode mode) {
         if (mode == PlacementMode.Fixed) {
@@ -78,5 +130,51 @@ public class CropManager : MonoBehaviour {
             initialMaterials[r] = new List<Material>(r.sharedMaterials);
         }
     }
+
+    private bool _IsCropPlot(GameObject o) {
+        return ((1 << o.layer) & CropPlacer.instance.cropPlotLayer.value) != 0;
+    }
+
+    #endregion
+
+    public IEnumerator GrowCrop() {
+        // Hide the initial startingCropPrefab
+        startingCropPrefab.GetComponent<MeshRenderer>().enabled = false;
+
+        // Iterate through growth stages
+        for (int i = 0; i < cropData.growthStages.Count; i++) {
+            // Destroy the previous spawned crop prefab
+            if (growthStagePrefab != null) {
+                Destroy(growthStagePrefab);
+            }
+
+            GameObject currentStage = cropData.growthStages[i].growthStagePrefab;
+            float currentGrowthTime = cropData.growthStages[i].growthTime;
+
+            growthStagePrefab = Instantiate(currentStage, transform.position, Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+
+
+            // If it's not the first growth stage, deactivate the startingCropPrefab
+            if (i > 0) {
+                startingCropPrefab.GetComponent<MeshRenderer>().enabled = false;
+            }
+
+            // Wait for growth time
+            yield return new WaitForSeconds(currentGrowthTime);
+        }
+        isHarvestable = true;
+    }
+
+
+
+    public void HarvestCrop() {
+        // Destroy the current growth stage prefab
+        Destroy(growthStagePrefab);
+
+        GameObject harvestPrefab = cropData.cropHarvestPrefab;
+        Instantiate(harvestPrefab, transform.position + Vector3.forward, Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+    }
+
+
 
 }

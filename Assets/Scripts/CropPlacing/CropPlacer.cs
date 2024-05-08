@@ -17,8 +17,7 @@ public class CropPlacer : MonoBehaviour {
     [Header("Raycast Settings")]
     public GameObject raycastOriginObject;
     private Ray _ray;
-    private RaycastHit _hit;
-    
+    private RaycastHit _hit;    
 
     private void Awake() {
         if (instance == null) {
@@ -32,6 +31,14 @@ public class CropPlacer : MonoBehaviour {
 
     private void Update() {
         if (_cropPrefab != null) {
+
+            // Right Click on Mouse exit Crop mode
+            if (Input.GetMouseButtonDown(1)) {
+                Destroy(_toPlant);
+                _cropPrefab = null;
+                _toPlant = null;
+                return;
+            }
 
             _ray = new Ray(raycastOriginObject.transform.position, Vector3.down);
             if (Physics.Raycast(_ray, out _hit, 1000f, cropPlotLayer, QueryTriggerInteraction.Collide)) {
@@ -49,14 +56,18 @@ public class CropPlacer : MonoBehaviour {
                     if (c.hasValidPlacement) {
                         c.SetCropPlacementMode(PlacementMode.Fixed);
 
+                        StartCoroutine(c.GrowCrop());
+
                         //Exit building mode
                         _cropPrefab = null;
                         _toPlant = null;
                     }
                 }
+
             } else if (_toPlant.activeSelf) {
                 _toPlant.SetActive(false);
             }
+
         }
     }
 
@@ -79,6 +90,4 @@ public class CropPlacer : MonoBehaviour {
         c.isFixed = false;
         c.SetCropPlacementMode(PlacementMode.Valid);
     }
-
-
 }

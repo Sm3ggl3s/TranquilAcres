@@ -26,4 +26,3 @@ MonoBehaviour:
     growthTime: 2
   - growthStagePrefab: {fileID: 2027643505085666304, guid: 7c96c0298d6794cf5a30267cd2061a4a, type: 3}
     growthTime: 2
-  rayCastOriginObject: {fileID: 6387505791886165826, guid: a819c47e86d6241e3848423e9b1200db, type: 3}
