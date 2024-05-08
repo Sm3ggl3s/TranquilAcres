@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingPlacer : MonoBehaviour
-{
+public class BuildingPlacer : MonoBehaviour {
     public static BuildingPlacer instance;
 
     //Layer
