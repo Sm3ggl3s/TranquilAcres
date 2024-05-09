@@ -18,6 +18,7 @@ public class Crop : ScriptableObject {
     public GameObject cropHarvestPrefab;
     public int cropPrice;
     public int cropQuantity;
+    public int cropQuantityToAdd;
     public List<GrowthStage> growthStages = new List<GrowthStage>();
     
 }

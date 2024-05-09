@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db21f547cdf79470485ff557264f3e02, type: 3}
+  m_Name: Pumpkin
+  m_EditorClassIdentifier: 
+  cropID: 2
+  cropName: Pumpkin
+  cropSeedPrefab: {fileID: 2281946297469971321, guid: 77fc96661feac4a959a788e388fa3e46, type: 3}
+  cropIcon: {fileID: 21300000, guid: 3acd54d67a4e74bbba5b81ecf532f85b, type: 3}
+  cropHarvestPrefab: {fileID: 3115294423265093585, guid: c53319820272746e7abffaceb007e6f5, type: 3}
+  cropPrice: 15
+  cropQuantity: 0
+  cropQuantityToAdd: 1
+  growthStages:
+  - growthStagePrefab: {fileID: 6670762018727342129, guid: 2d829c2dca8c14c97a4a9819a5c68e4d, type: 3}
+    growthTime: 2
+  - growthStagePrefab: {fileID: 6969171775933647564, guid: 3a6c54c6c68fb4e4086cc074479501cd, type: 3}
+    growthTime: 2
+  - growthStagePrefab: {fileID: 7625341494791070330, guid: 98d175badb681469190c45ef1fc257e0, type: 3}
+    growthTime: 2

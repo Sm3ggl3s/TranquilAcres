@@ -27,6 +27,8 @@ public class CropManager : MonoBehaviour {
     [HideInInspector] public bool isFixed;
 
     public GameObject growthStagePrefab = null;
+    public GameObject harvestPrefab = null;
+    public GameObject harvestPrefabInstance;
     public bool isHarvestable = false;
 
     private int _nObstacles;
@@ -39,14 +41,11 @@ public class CropManager : MonoBehaviour {
         _InitializeMaterials();
     }
 
-    private void Update() {
-        Debug.Log("Harvestable Update method: " + isHarvestable);
-        Debug.Log("Grow Stage Prefab: " + growthStagePrefab);
+    // private void Update() {
+    //     Debug.Log("Harvestable Update method: " + isHarvestable);
+    //     Debug.Log("Grow Stage Prefab: " + growthStagePrefab);
 
-        if (isHarvestable && Input.GetKeyDown(KeyCode.E)) {
-            HarvestCrop();
-        }
-    }
+    // }
 
     private void OnTriggerEnter(Collider other) {
         if (isFixed) {
@@ -171,9 +170,17 @@ public class CropManager : MonoBehaviour {
         // Destroy the current growth stage prefab
         Destroy(growthStagePrefab);
 
-        GameObject harvestPrefab = cropData.cropHarvestPrefab;
-        Instantiate(harvestPrefab, transform.position + Vector3.forward, Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+        harvestPrefab = cropData.cropHarvestPrefab;
+        harvestPrefabInstance = Instantiate(harvestPrefab, transform.position + Vector3.forward, Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
     }
+
+    public void DestroyHarvestPrefabInstance() {
+        // Destroy the instance of the harvestPrefab
+        if (harvestPrefabInstance != null) {
+            Destroy(harvestPrefabInstance);
+        }
+    }
+
 
 
 

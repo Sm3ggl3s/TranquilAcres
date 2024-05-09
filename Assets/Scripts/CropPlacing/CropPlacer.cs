@@ -39,8 +39,12 @@ public class CropPlacer : MonoBehaviour {
                 _toPlant = null;
                 return;
             }
+            
+            CropManager c = _toPlant.GetComponent<CropManager>();
 
             _ray = new Ray(raycastOriginObject.transform.position, Vector3.down);
+            Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red, 1f); // Draw the ray in the scene view
+
             if (Physics.Raycast(_ray, out _hit, 1000f, cropPlotLayer, QueryTriggerInteraction.Collide)) {
                 if (!_toPlant.activeSelf) {
                     _toPlant.SetActive(true);
@@ -52,7 +56,6 @@ public class CropPlacer : MonoBehaviour {
 
                 // Left Click on Mouse place crop
                 if (Input.GetMouseButtonDown(0)) {
-                    CropManager c = _toPlant.GetComponent<CropManager>();
                     if (c.hasValidPlacement) {
                         c.SetCropPlacementMode(PlacementMode.Fixed);
 
@@ -64,11 +67,13 @@ public class CropPlacer : MonoBehaviour {
                     }
                 }
 
+
             } else if (_toPlant.activeSelf) {
                 _toPlant.SetActive(false);
             }
 
         }
+
     }
 
     public void SetCropPrefab(GameObject cropPrefab) {

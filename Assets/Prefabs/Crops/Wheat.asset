@@ -18,7 +18,8 @@ MonoBehaviour:
   cropIcon: {fileID: 21300000, guid: 9605ab31d9969437b96aec4071f8aeac, type: 3}
   cropHarvestPrefab: {fileID: 5272167732562295783, guid: 8b8f17b05d21140cfb1ce38db8870eff, type: 3}
   cropPrice: 5
-  cropQuantity: 20
+  cropQuantity: 0
+  cropQuantityToAdd: 3
   growthStages:
   - growthStagePrefab: {fileID: 795366483965337378, guid: 85566e4ae38794919bd7b4fa609378ef, type: 3}
     growthTime: 2
