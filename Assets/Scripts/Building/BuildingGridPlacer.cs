@@ -38,6 +38,14 @@ public class BuildingGridPlacer : BuildingPlacer
                 return;
             }
 
+            // hide preview when hovering UI
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (_toBuild.activeSelf) _toBuild.SetActive(false);
+                return;
+            }
+            else if (!_toBuild.activeSelf) _toBuild.SetActive(true);
+
             // Rotate preview with Spacebar
             if (Input.GetKeyDown(KeyCode.Space)) {
                 _toBuild.transform.Rotate(Vector3.up, 90f);

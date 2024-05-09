@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
     public static GUIManager instance;
-    private bool isInventoryActive;
-    private bool isBuildingMenuActive;
 
-    [Header("Inventory Settings")]
-    public GameObject inventoryPanel;
-
-    [Header("Building Menu Settings")]
-    public GameObject buildingMenuPanel;
+    public static bool isGamePaused = false;
+    
+    [Header("GUI Settings")]
+    public GameObject InventoryPanel;
+    public GameObject CropToolBar;
+    public GameObject BuildToolBar;
+    public GameObject PauseMenu;
 
 
     private void Awake() {
@@ -21,39 +23,37 @@ public class GUIManager : MonoBehaviour {
         } else {
             Destroy(this);
         }
-
-        isInventoryActive = false;
-        isBuildingMenuActive = false;
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            ShowInventory();
-        }
-        if (Input.GetKeyDown(KeyCode.B)) {
-            ShowBuildingMenu();
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (isGamePaused) {
+                ResumeGame();
+            } else {
+                PauseGame();
+            }
         }
     }
 
-    private void ShowInventory() {
-        inventoryPanel.SetActive(!isInventoryActive);
-        isInventoryActive = !isInventoryActive;
-
-        // Disable building menu if inventory is active
-        if (isBuildingMenuActive) {
-            buildingMenuPanel.SetActive(false);
-        }
-        print("Inventory Active: " + isInventoryActive);
+    public void PauseGame() {
+        PauseMenu.SetActive(true);
+        InventoryPanel.SetActive(false);
+        CropToolBar.SetActive(false);
+        BuildToolBar.SetActive(false);
+        Time.timeScale = 0f;
+        isGamePaused = true;
     }
-    
-    private void ShowBuildingMenu() {
-        buildingMenuPanel.SetActive(!isBuildingMenuActive);
-        isBuildingMenuActive = !isBuildingMenuActive;
 
-        // Disable inventory if building menu is active
-        if (isInventoryActive) {
-            inventoryPanel.SetActive(false);
-        }
-        print("Building Menu Active: " + isBuildingMenuActive);
+    public void ResumeGame() {
+        PauseMenu.SetActive(false);
+        InventoryPanel.SetActive(true);
+        CropToolBar.SetActive(true);
+        BuildToolBar.SetActive(true);
+        Time.timeScale = 1f;
+        isGamePaused = false;
+    }
+
+    public void Menu() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

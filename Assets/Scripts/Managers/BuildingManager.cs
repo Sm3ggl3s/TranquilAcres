@@ -33,6 +33,7 @@ public class BuildingManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (isFixed) {
+            GetComponent<Collider>().isTrigger = false;
             return;
         }
         // ignore ground objects

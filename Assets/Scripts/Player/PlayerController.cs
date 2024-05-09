@@ -24,8 +24,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Awake()
-    {
+    private void Awake() {
         _characterController = GetComponent<CharacterController>();
     }
 
