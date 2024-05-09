@@ -22,8 +22,8 @@ MonoBehaviour:
   cropQuantityToAdd: 3
   growthStages:
   - growthStagePrefab: {fileID: 795366483965337378, guid: 85566e4ae38794919bd7b4fa609378ef, type: 3}
-    growthTime: 2
+    growthTime: 30
   - growthStagePrefab: {fileID: 8105623679120587615, guid: af71168eb912d42ad9fde1f7abbafda8, type: 3}
-    growthTime: 2
+    growthTime: 60
   - growthStagePrefab: {fileID: 2027643505085666304, guid: 7c96c0298d6794cf5a30267cd2061a4a, type: 3}
-    growthTime: 2
+    growthTime: 90

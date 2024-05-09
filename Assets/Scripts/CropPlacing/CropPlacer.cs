@@ -39,6 +39,14 @@ public class CropPlacer : MonoBehaviour {
                 _toPlant = null;
                 return;
             }
+
+            // hide preview when hovering UI
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (_toPlant.activeSelf) _toPlant.SetActive(false);
+                return;
+            }
+            else if (!_toPlant.activeSelf) _toPlant.SetActive(true);
             
             CropManager c = _toPlant.GetComponent<CropManager>();
 
