@@ -14,10 +14,13 @@ cultivating crops, raising animals, and building your dream homestead.
    - Immerse yourself in a tranquil environment with soothing music and beautiful scenery.
 
 ## How To Play:
-1. Clone the repository to your local machine using 'git clone https://github.com/Sm3ggl3s/TranquilAcres.git'.
-2. Open the project in Unity (Unity version 2022.3.17f1 recommended).
-3. Navigate to the main scene and press play to start the game.
-4. Enjoy building, planting, harvesting, and selling your crops.
+1. Clone the repository:
+    ```console
+   git clone https://github.com/Sm3ggl3s/TranquilAcres.git
+    ```
+3. Open the project in Unity (Unity version 2022.3.17f1 recommended).
+4. Navigate to the main scene and press play to start the game.
+5. Enjoy building, planting, harvesting, and selling your crops.
 
 ## Contributing:
 Currently a solo project.
