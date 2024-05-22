@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour {
@@ -37,6 +38,10 @@ public class MapManager : MonoBehaviour {
                 Debug.Log("Parent Transform: " + transform.name);
             }
         }
+    }
+
+    public void ClearVoxelGrid() {
+        return;
     }
 
 }
