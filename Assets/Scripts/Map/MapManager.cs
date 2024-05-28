@@ -11,21 +11,13 @@ public class MapManager : MonoBehaviour {
     public int mapDepth = 10;
     public float voxelSize = 1.0f;
 
-    // private void Start() {
-    //     Debug.Log("Start() called");
-    //     if (voxelPrefab == null) {
-    //         Debug.LogError("Voxel Prefab is not assigned in the Inspector.");
-    //     }
-    //     GenerateVoxelGrid();
-    // }
-
-    public void GenerateVoxelGrid() {
+    public void GenerateBaseVoxelGrid() {
         if (voxelPrefab == null) {
             Debug.LogError("Voxel Prefab is not set!");
             return;
         }
 
-        ClearVoxelGrid();
+        ClearBaseVoxelGrid();
 
         for (int x = 0; x < mapWidth; x++) {
             for (int z = 0; z < mapDepth; z++) {
@@ -44,7 +36,7 @@ public class MapManager : MonoBehaviour {
         }
     }
 
-    public void ClearVoxelGrid() {
+    public void ClearBaseVoxelGrid() {
         while (transform.childCount > 0) {
             Transform child = transform.GetChild(0);
             DestroyImmediate(child.gameObject);
