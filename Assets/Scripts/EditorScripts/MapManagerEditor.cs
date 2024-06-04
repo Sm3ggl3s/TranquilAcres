@@ -11,11 +11,11 @@ public class MapManagerEditor : Editor {
         MapManager mapManager = (MapManager)target;
 
         if (GUILayout.Button("Generate Voxel Grid")) {
-            mapManager.GenerateVoxelGrid();
+            mapManager.GenerateBaseVoxelGrid();
         }
 
         if (GUILayout.Button("Clear Voxel Grid")) {
-            mapManager.ClearVoxelGrid();
+            mapManager.ClearBaseVoxelGrid();
         }
     }
 }
