@@ -17,15 +17,18 @@ public class MapManager : MonoBehaviour {
             return;
         }
 
+        int halfWidth = mapWidth / 2;
+        int halfDepth = mapDepth / 2;
+
         ClearBaseVoxelGrid();
 
-        for (int x = 0; x < mapWidth; x++) {
-            for (int z = 0; z < mapDepth; z++) {
+        for (int x = -halfWidth; x < halfWidth; x++) {
+            for (int z = -halfDepth; z < halfDepth; z++) {
                 if (voxelPrefab == null) {
                     Debug.LogError("Voxel Prefab became null during the grid generation!");
                     return;
                 }
-                Vector3 voxelPosition = new Vector3((x-5) * voxelSize, -1, (z-5) * voxelSize);
+                Vector3 voxelPosition = new Vector3(x * voxelSize, -1, z * voxelSize);
                 Instantiate(voxelPrefab, voxelPosition, Quaternion.identity, transform);
                 Debug.Log("Instantiated voxel at: " + voxelPosition);
                 
