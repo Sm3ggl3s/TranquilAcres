@@ -28,7 +28,7 @@ public class MapManager : MonoBehaviour {
                     Debug.LogError("Voxel Prefab became null during the grid generation!");
                     return;
                 }
-                Vector3 voxelPosition = new Vector3(x * voxelSize, -1, z * voxelSize);
+                Vector3 voxelPosition = new Vector3((x + 0.5f) * voxelSize, -1, (z + 0.5f) * voxelSize);
                 Instantiate(voxelPrefab, voxelPosition, Quaternion.identity, transform);
                 Debug.Log("Instantiated voxel at: " + voxelPosition);
                 
